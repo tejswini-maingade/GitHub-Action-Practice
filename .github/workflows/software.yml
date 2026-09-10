@@ -1,0 +1,21 @@
+name: Check Preinstalled Software
+
+on:
+  push:
+
+jobs:
+  software:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Docker
+        run: docker --version
+
+      - name: Check Python
+        run: python3 --version
+
+      - name: Check Node
+        run: node --version
+
+      - name: Check Git
+        run: git --version
