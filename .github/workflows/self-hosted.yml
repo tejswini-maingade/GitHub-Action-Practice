@@ -1,0 +1,36 @@
+name: Self Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  self-hosted-job:
+
+    runs-on: self-hosted
+
+    steps:
+      - name: Show hostname
+        run: |
+          echo "Running on:"
+          hostname
+
+      - name: Show working directory
+        run: |
+          echo "Working directory:"
+          pwd
+
+      - name: Show current user
+        run: |
+          echo "Current user:"
+          whoami
+
+      - name: Create test file
+        run: |
+          echo "Hello from my self-hosted runner!" > day42-test.txt
+          ls -l day42-test.txt
+
+      - name: Verify file
+        run: |
+          cat day42-test.txt
+          test -f day42-test.txt
+          echo "File exists successfully!"
