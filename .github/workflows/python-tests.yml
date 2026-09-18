@@ -1,26 +1,23 @@
-name: run script
+name: Python Tests
 
 on:
-  workflow_dispatch: 
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-  run-script:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Make script executable
-        run: chmod +x system-info.sh
-        
-      - name: Run the system info script
-        run: ./system-info.sh
+      - name: Run Python tests
+        run: |
+          python -m unittest discover -s tests -v
