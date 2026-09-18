@@ -1,0 +1,36 @@
+name: Artifact Between Jobs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate report
+        run: |
+          echo "Day 44 Artifact Report" > report.txt
+          echo "Build completed successfully" >> report.txt
+          echo "Tests completed successfully" >> report.txt
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: day44-report
+          path: report.txt
+
+  download-report:
+    needs: generate-report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download report
+        uses: actions/download-artifact@v4
+        with:
+          name: day44-report
+
+      - name: Display report
+        run: |
+          echo "Downloaded artifact:"
+          cat report.txt
